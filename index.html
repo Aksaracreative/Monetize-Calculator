@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator Monetisasi TikTok & Instagram 🇮🇩</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8fafc;
+      color: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    label { font-weight: bold; }
+    select, input {
+      width: 100%;
+      margin: 6px 0 15px;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      width: 100%;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background: #1e40af; }
+    .result { margin-top: 15px; font-weight: bold; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Kalkulator Monetisasi</h1>
+    <label>Platform:</label>
+    <select id="platform">
+      <option value="tiktok">TikTok</option>
+      <option value="instagram">Instagram</option>
+    </select>
+
+    <label>Jumlah Views:</label>
+    <input type="number" id="views" placeholder="Masukkan total views">
+
+    <button onclick="hitung()">Hitung Estimasi</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitung() {
+      const platform = document.getElementById('platform').value;
+      const views = parseFloat(document.getElementById('views').value);
+      if (!views || views <= 0) {
+        document.getElementById('hasil').innerHTML = "Masukkan jumlah views yang valid.";
+        return;
+      }
+
+      // CPM Indonesia (perkiraan 2025)
+      const cpm_tiktok = 0.15;   // $0.15 per 1000 views
+      const cpm_instagram = 0.35; // $0.35 per 1000 views
+      const usdToIdr = 16000;
+
+      let cpm = platform === "tiktok" ? cpm_tiktok : cpm_instagram;
+      let pendapatan_usd = (views / 1000) * cpm;
+      let pendapatan_idr = pendapatan_usd * usdToIdr;
+
+      document.getElementById('hasil').innerHTML =
+        `Estimasi pendapatan: <br><strong>Rp ${pendapatan_idr.toLocaleString('id-ID')}</strong>`;
+    }
+  </script>
+</body>
+</html>
